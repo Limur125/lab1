@@ -1,18 +1,26 @@
-version: "3"
+version: '3.4'
+
 services:
+  webapplication1:
+    image: ${DOCKER_REGISTRY-}webapplication1
+    ports:
+      - "5001:5001"
+      - "5000:5000"
+    build:
+      context: .
+      dockerfile: Dockerfile
+
   postgres:
-    image: library/postgres:13
-    container_name: postgres
-    restart: on-failure
+    image: postgres:14.1-alpine
+    restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: "postgres"
-      POSTGRES_DB: postgres
-    volumes:
-      - db-data:/var/lib/postgresql/data
-      - ./postgres/:/docker-entrypoint-initdb.d/
+      POSTGRES_PASSWORD: postgres
     ports:
-      - "5432:5432"
+      - '5432:5432'
+    volumes:
+      - db_data:/var/lib/postgresql/data
 
 volumes:
-  db-data:
+  db_data:
+    driver: local
