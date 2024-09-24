@@ -7,6 +7,7 @@ on:
     branches:
       - master
 jobs:
+
   build:
     name: Autograding
     runs-on: ubuntu-latest
@@ -16,7 +17,24 @@ jobs:
           fetch-depth: 0
 
       # TODO build, test and deploy project
-
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+      
+      - name: Restore dependencies
+        run: dotnet restore WebApplication1
+      
+      - name: Build
+        run: dotnet build WebApplication1 --no-restore
+      
+      - name: Test
+        run: dotnet test rsoi_lab1_tests --no-build --verbosity normal
+      
+      - name: Call hook
+        run:
+          curl "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
+      
       - name: Run API Tests
         uses: matt-ball/newman-action@master
         with:
@@ -25,16 +43,18 @@ jobs:
           delayRequest: 100
           reporters: '[ "cli" ]'
 
-      - name: Autograding
-        uses: education/autograding@v1
-        continue-on-error: true
 
-      - name: Github auto grader mark
-        uses: Romanow/google-sheet-autograder-marker@v1.0
-        with:
-          google_token: ${{secrets.GOOGLE_API_KEY}}
-          sheet_id: "1xkgjUX6Qmk7rdJG-QPOToav-HWWtthJjnShIKnw3oIY"
-          homework_number: 1
-          user_column: 'D'
-          column_offset: 'F'
-          mark: "'+"
+
+      # - name: Autograding
+      #   uses: education/autograding@v1
+      #   continue-on-error: true
+
+      # - name: Github auto grader mark
+      #   uses: Romanow/google-sheet-autograder-marker@v1.0
+      #   with:
+      #     google_token: ${{secrets.GOOGLE_API_KEY}}
+      #     sheet_id: "1xkgjUX6Qmk7rdJG-QPOToav-HWWtthJjnShIKnw3oIY"
+      #     homework_number: 1
+      #     user_column: 'D'
+      #     column_offset: 'F'
+      #     mark: "'+"
