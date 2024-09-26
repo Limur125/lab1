@@ -55,7 +55,7 @@ public class PersonController(IPersonRepository personRepository) : ControllerBa
         {
             return NotFound(ex.Message);
         }
-        return Ok();
+        return StatusCode(StatusCodes.Status204NoContent);
 
     }
     
@@ -64,12 +64,12 @@ public class PersonController(IPersonRepository personRepository) : ControllerBa
     {
         try
         {
-            await personRepository.UpdatePerson(id);
+            var res = await personRepository.UpdatePerson(id);
+            return Ok(res);
         }
         catch (ArgumentException ex)
         {
             return NotFound(ex.Message);
         }
-        return Ok();
     }
 }

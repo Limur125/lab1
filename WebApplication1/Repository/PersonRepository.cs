@@ -19,12 +19,13 @@ namespace WebApplication1.Repository
             await context.persons.AddAsync(person);
             await context.SaveChangesAsync();
         }
-        public async Task UpdatePerson(int Id)
+        public async Task<Person> UpdatePerson(int Id)
         {
             var person = await context.persons.FirstOrDefaultAsync(x => x.id == Id) ?? 
                 throw new ArgumentException($"Person with Id {Id} does not exists");
             context.persons.Update(person);
             await context.SaveChangesAsync();
+            return person;
         }
         public async Task DeletePerson(int Id)
         {
