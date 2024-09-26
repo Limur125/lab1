@@ -7,7 +7,7 @@ namespace WebApplication1.Repository
         Task<Person> GetPersonById(int Id);
         Task<IEnumerable<Person>> GetAllPersons();
         Task AddPerson(Person person);
-        Task<Person> UpdatePerson(int Id);
+        Task<Person> UpdatePerson(int Id, Person person);
         Task DeletePerson(int Id);
       
     }

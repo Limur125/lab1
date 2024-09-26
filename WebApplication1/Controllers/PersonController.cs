@@ -60,11 +60,11 @@ public class PersonController(IPersonRepository personRepository) : ControllerBa
     }
     
     [HttpPatch("{id}")]
-    public async Task<ActionResult> PatchPerson(int id)
+    public async Task<ActionResult> PatchPerson(int id, [FromBody] Person person)
     {
         try
         {
-            var res = await personRepository.UpdatePerson(id);
+            var res = await personRepository.UpdatePerson(id, person);
             return Ok(res);
         }
         catch (ArgumentException ex)

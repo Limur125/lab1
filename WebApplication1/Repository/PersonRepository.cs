@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebApplication1.Domain;
 
 namespace WebApplication1.Repository
@@ -19,10 +20,14 @@ namespace WebApplication1.Repository
             await context.persons.AddAsync(person);
             await context.SaveChangesAsync();
         }
-        public async Task<Person> UpdatePerson(int Id)
+        public async Task<Person> UpdatePerson(int Id, Person newPerson)
         {
             var person = await context.persons.FirstOrDefaultAsync(x => x.id == Id) ?? 
                 throw new ArgumentException($"Person with Id {Id} does not exists");
+            person.address = newPerson.address;
+            person.name = newPerson.name;
+            person.work = newPerson.work;
+            person.age = newPerson.age;
             context.persons.Update(person);
             await context.SaveChangesAsync();
             return person;
