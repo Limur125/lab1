@@ -13,7 +13,8 @@ namespace WebApplication1.Repository
         public async Task<IEnumerable<Person>> GetAllPersons() => await context.persons.ToArrayAsync();
         public async Task AddPerson (Person person)
         {
-            var newPerson = await context.persons.FirstOrDefaultAsync(x => x.id == person.id) ??
+            var newPerson = await context.persons.FirstOrDefaultAsync(x => x.id == person.id);
+            if (newPerson != null)
                 throw new ArgumentException($"Person with Id {person.id} does exists");
             await context.persons.AddAsync(person);
             await context.SaveChangesAsync();

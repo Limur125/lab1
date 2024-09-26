@@ -5,7 +5,7 @@ using WebApplication1.Repository;
 namespace WebApplication1.Controllers;
 
 [ApiController]
-[Route("persons")]
+[Route("api/v1/persons")]
 public class PersonController(IPersonRepository personRepository) : ControllerBase
 {
     [HttpGet]
@@ -41,7 +41,7 @@ public class PersonController(IPersonRepository personRepository) : ControllerBa
             return BadRequest(ex.Message);
         }
         var personId = person.id;
-        return Created($"persons/{personId}", null);
+        return Created($"api/v1/persons/{personId}", null);
     }
     
     [HttpDelete("{id}")]
