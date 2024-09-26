@@ -24,13 +24,18 @@ namespace WebApplication1.Repository
         {
             var person = await context.persons.FirstOrDefaultAsync(x => x.id == Id) ?? 
                 throw new ArgumentException($"Person with Id {Id} does not exists");
-            person.address = newPerson.address;
-            person.name = newPerson.name;
-            person.work = newPerson.work;
-            person.age = newPerson.age;
+            if (newPerson.address != null)
+                person.address = newPerson.address;
+            if (newPerson.name != null)
+                person.name = newPerson.name;
+            if (newPerson.work != null)
+                person.work = newPerson.work;
+            if (newPerson.age != null)
+                person.age = newPerson.age;
             context.persons.Update(person);
             await context.SaveChangesAsync();
-            return person;
+            return await context.persons.FirstOrDefaultAsync(x => x.id == Id) ??
+                throw new ArgumentException($"Person with Id {Id} does not exists");
         }
         public async Task DeletePerson(int Id)
         {
