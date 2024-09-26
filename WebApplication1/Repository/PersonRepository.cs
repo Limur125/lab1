@@ -7,29 +7,29 @@ namespace WebApplication1.Repository
     {
         public async Task<Person> GetPersonById(int Id)
         {
-            var person = await context.Persons.FirstOrDefaultAsync(x => x.Id == Id);
+            var person = await context.persons.FirstOrDefaultAsync(x => x.id == Id);
             return person ?? throw new ArgumentException($"Person with Id {Id} does not exists");
         }
-        public async Task<IEnumerable<Person>> GetAllPersons() => await context.Persons.ToArrayAsync();
+        public async Task<IEnumerable<Person>> GetAllPersons() => await context.persons.ToArrayAsync();
         public async Task AddPerson (Person person)
         {
-            var newPerson = await context.Persons.FirstOrDefaultAsync(x => x.Id == person.Id) ??
-                throw new ArgumentException($"Person with Id {person.Id} does exists");
-            await context.Persons.AddAsync(person);
+            var newPerson = await context.persons.FirstOrDefaultAsync(x => x.id == person.id) ??
+                throw new ArgumentException($"Person with Id {person.id} does exists");
+            await context.persons.AddAsync(person);
             await context.SaveChangesAsync();
         }
         public async Task UpdatePerson(int Id)
         {
-            var person = await context.Persons.FirstOrDefaultAsync(x => x.Id == Id) ?? 
+            var person = await context.persons.FirstOrDefaultAsync(x => x.id == Id) ?? 
                 throw new ArgumentException($"Person with Id {Id} does not exists");
-            context.Persons.Update(person);
+            context.persons.Update(person);
             await context.SaveChangesAsync();
         }
         public async Task DeletePerson(int Id)
         {
-            var person = await context.Persons.FirstOrDefaultAsync(x => x.Id == Id) ??
+            var person = await context.persons.FirstOrDefaultAsync(x => x.id == Id) ??
                 throw new ArgumentException($"Person with Id {Id} does not exists");
-            context.Persons.Remove(person);
+            context.persons.Remove(person);
             await context.SaveChangesAsync();
         }
     }

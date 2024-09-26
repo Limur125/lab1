@@ -2,9 +2,9 @@
 
 public class Person
 {
-    public int Id { get; set; }
-    public string? Name { get; set; }
-    public int? Age { get; set; }
-    public string? Address { get; set; }
-    public string? Work { get; set; }
+    public int id { get; set; }
+    public string? name { get; set; }
+    public int? age { get; set; }
+    public string? address { get; set; }
+    public string? work { get; set; }
 }

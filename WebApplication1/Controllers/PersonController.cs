@@ -40,7 +40,7 @@ public class PersonController(IPersonRepository personRepository) : ControllerBa
         {
             return BadRequest(ex.Message);
         }
-        var personId = person.Id;
+        var personId = person.id;
         return Created($"persons/{personId}", null);
     }
     

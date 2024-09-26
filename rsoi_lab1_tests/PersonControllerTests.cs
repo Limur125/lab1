@@ -12,11 +12,11 @@ namespace rsoi_lab1_tests
         {
             List<Person> expected = new List<Person>() { new Person()
             {
-                Id = 1,
-                Name = "mockName",
-                Address = "mockAddress",
-                Age = 10,
-                Work = "mockWork"
+                id = 1,
+                name = "mockName",
+                address = "mockAddress",
+                age = 10,
+                work = "mockWork"
             } };
             var mock = new Mock<IPersonRepository>();
             mock.Setup(a => a.GetAllPersons()).ReturnsAsync(expected);
@@ -34,11 +34,11 @@ namespace rsoi_lab1_tests
         {
             var expected = new Person()
             {
-                Id = 1,
-                Name = "mockName",
-                Address = "mockAddress",
-                Age = 10,
-                Work = "mockWork"
+                id = 1,
+                name = "mockName",
+                address = "mockAddress",
+                age = 10,
+                work = "mockWork"
             };
             var mock = new Mock<IPersonRepository>();
             mock.Setup(a => a.GetPersonById(1)).ReturnsAsync(expected);
@@ -56,10 +56,10 @@ namespace rsoi_lab1_tests
         {
             var person = new Person()
             {
-                Name = "mockName",
-                Address = "mockAddress",
-                Age = 10,
-                Work = "mockWork"
+                name = "mockName",
+                address = "mockAddress",
+                age = 10,
+                work = "mockWork"
             };
             var mock = new Mock<IPersonRepository>();
             PersonController controller = new PersonController(mock.Object);
@@ -75,18 +75,18 @@ namespace rsoi_lab1_tests
             List<Person> expected = new List<Person>();
             var person = new Person()
             {
-                Id = 1,
-                Name = "mockName",
-                Address = "mockAddress",
-                Age = 10,
-                Work = "mockWork"
+                id = 1,
+                name = "mockName",
+                address = "mockAddress",
+                age = 10,
+                work = "mockWork"
             };
             var mock = new Mock<IPersonRepository>();
             PersonController controller = new PersonController(mock.Object);
 
-            var result = await controller.DeletePerson(person.Id);
+            var result = await controller.DeletePerson(person.id);
 
-            mock.Verify(a => a.DeletePerson(person.Id));
+            mock.Verify(a => a.DeletePerson(person.id));
         }
     }
 }
