@@ -34,6 +34,7 @@ public class PersonController(IPersonRepository personRepository) : ControllerBa
     {
         try
         {
+            Console.WriteLine($"{person.name} {person.address} {person.age} {person.work}");
             await personRepository.AddPerson(person);
         }
         catch (ArgumentException ex)
@@ -64,6 +65,7 @@ public class PersonController(IPersonRepository personRepository) : ControllerBa
     {
         try
         {
+            Console.WriteLine($"{person.name} {person.address} {person.age} {person.work}");
             var res = await personRepository.UpdatePerson(id, person);
             return Ok(res);
         }
